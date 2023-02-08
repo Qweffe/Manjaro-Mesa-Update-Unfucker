@@ -8,8 +8,8 @@ cyan=$(tput setaf 6)
 clear=$(tput sgr0)
 
 language() {
-    czech=("Manjaro Mesa Aktualizace Spravovač -od Qwefe" "Aktuální verze" "Vlastní verze" "Konec" "Verze: " "Verze neexistuje" "Špatná možnost" "Smazat instalační soubory?" "Zmáčkněte cokoli pro ukončení" "Pro instalaci potřebujem root" "Jazyk" "je nainstalován" "není nainstalován" "Naistalovat chybějící závislosti" "Kontrola závislostí")
-    english=("MANAJARO MESA UPDATE UNFUCKER -by Qwefe" "Current version" "Custom version" "Quit" "Version: " "Version doesn't exist" "Bad option" "Delete install files?" "Press anything to quit" "We need root for installation" "Language" "is installed" "isn't installed" "Install missing dependencies" "Dependencies check")
+    czech=("Manjaro Mesa Aktualizace Spravovač -od Qwefe" "Aktuální verze" "Vlastní verze" "Konec" "Verze: " "Verze neexistuje" "Špatná možnost" "Smazat instalační soubory?" "Zmáčkněte cokoli pro ukončení" "Pro instalaci potřebujem root" "Jazyk" "je nainstalován" "není nainstalován" "Naistalovat chybějící závislosti" "Kontrola závislostí" "Pro odstranění instalačních souborů potřebujem root")
+    english=("MANAJARO MESA UPDATE UNFUCKER -by Qwefe" "Current version" "Custom version" "Quit" "Version: " "Version doesn't exist" "Bad option" "Delete install files?" "Press anything to quit" "We need root for installation" "Language" "is installed" "isn't installed" "Install missing dependencies" "Dependencies check" "We need root for the removal of installation files")
     case $loc in
         cs)
             #echo "česky"
@@ -37,8 +37,7 @@ odejdi () {
 }
 leave () {
     trap SIGINT
-    rm "mesa-$ver.tar.xz"
-    rm -rv "mesa-$ver"
+    rm -f "mesa-$ver.tar.xz"
     odejdi
 }
 menu () {
@@ -121,6 +120,7 @@ pkgchk () {
         if [ "$yn" = "y" ]; then
             echo "${magenta}$(language 9)${clear}"
             sudo pacman -Sy --noconfirm "${install[@]}"
+            sleep 1
             pkgchk
         else
             odejdi
@@ -139,8 +139,9 @@ echo "${red}$(language 7)${clear} [y/n]"
 read -r smaz
 if [ "$smaz" = "y" ] ; then
     cd $cesta
-    sudo rm -rv "mesa-$ver"
-    rm "mesa-$ver.tar.xz"
+    rm -f "mesa-$ver.tar.xz"
+    echo "${magenta}$(language 15)${clear}"
+    sudo rm -rv -f "mesa-$ver"
 fi
 echo ""
 echo "${cyan}$(language 8)${clear}"
