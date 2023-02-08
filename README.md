@@ -1,5 +1,5 @@
 # Manjaro-Mesa-Update-Unfucker
-Bash script made for majaro and other arch derivates to easily build and install the current version of mesa.  
+Bash script made for majaro and other arch derivates to easily download, compile and install the current version of mesa.  
   
 Is your distro Manjaro? Do you enjou having HW acceleration on video without having to compile mesa from source every fucking time because the people making the official package are being dumb?  
 Well, do i have bad news for you, they are.  
